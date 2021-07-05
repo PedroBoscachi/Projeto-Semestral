@@ -199,30 +199,22 @@ void question1(void){
 	
 	printf("[b] -> ");
 	scanf("%d", &b1);	
-	while(b1<1 || b1>4){
+	while(b1<1 || b1>4 || b1==a1){
 		scanf("%d", &b1);
-	}
-	while(b1 == a1){
-		scanf("%d", &b1);
-	}
+	}	
 	
 	printf("[c] -> ");
 	scanf("%d", &c1);
-	while(c1<1 || c1>4){
+	while(c1<1 || c1>4 || c1==a1 || c1==b1){
 		scanf("%d", &c1);
-	}
-	while(c1 == a1 || c1 == b1){
-		scanf("%d", &c1);
-	}
+	}	
 	
 	printf("[d] -> ");
 	scanf("%d", &d1);
-	while(d1<1 || d1>4){
+	while(d1<1 || d1>4 || d1==a1 || d1==b1 || d1==c1){
 		scanf("%d", &d1);
 	}
-	while(d1 == a1 || d1 == b1 || d1 == c1){
-		scanf("%d", &d1);
-	}			
+				
 }
 
 void question2(void){
@@ -243,30 +235,21 @@ void question2(void){
 	
 	printf("[b] -> ");
 	scanf("%d", &b2);	
-	while(b2<1 || b2>4){
-		scanf("%d", &b2);
-	}
-	while(b2 == a2){
+	while(b2<1 || b2>4 || b2==a2){
 		scanf("%d", &b2);
 	}
 	
 	printf("[c] -> ");
 	scanf("%d", &c2);
-	while(c2<1 || c2>4){
+	while(c2<1 || c2>4 || c2==a2 || c2==b2){
 		scanf("%d", &c2);
-	}
-	while(c2 == a2 || c2 == b2){
-		scanf("%d", &c2);
-	}
+	}	
 	
 	printf("[d] -> ");
 	scanf("%d", &d2);
-	while(d2<1 || d2>4){
+	while(d2<1 || d2>4 || d2==a2 || d2==b2 || d2==c2){
 		scanf("%d", &d2);
-	}
-	while(d2 == a2 || d2 == b2 || d2 == c2){
-		scanf("%d", &d2);
-	}		
+	}			
 }
 
 void question3(void){
@@ -287,30 +270,21 @@ void question3(void){
 	
 	printf("[b] -> ");
 	scanf("%d", &b3);	
-	while(b3<1 || b3>4){
+	while(b3<1 || b3>4 || b3==a3){
 		scanf("%d", &b3);
-	}
-	while(b3 == a3){
-		scanf("%d", &b3);
-	}
+	}	
 	
 	printf("[c] -> ");
 	scanf("%d", &c3);
-	while(c3<1 || c3>4){
+	while(c3<1 || c3>4 || c3==a3 || c3==b3){
 		scanf("%d", &c3);
-	}
-	while(c3 == a3 || c3 == b3){
-		scanf("%d", &c3);
-	}
+	}	
 	
 	printf("[d] -> ");
 	scanf("%d", &d3);
-	while(d3<1 || d3>4){
+	while(d3<1 || d3>4 || d3==a3 || d3==b3 || d3==c3){
 		scanf("%d", &d3);
-	}
-	while(d3 == a3 || d3 == b3 || d3 == c3){
-		scanf("%d", &d3);
-	}		
+	}			
 }
 
 void question4(void){
@@ -331,30 +305,21 @@ void question4(void){
 	
 	printf("[b] -> ");
 	scanf("%d", &b4);	
-	while(b4<1 || b4>4){
-		scanf("%d", &b4);
-	}
-	while(b4 == a4){
+	while(b4<1 || b4>4 || b4==a4){
 		scanf("%d", &b4);
 	}
 	
 	printf("[c] -> ");
 	scanf("%d", &c4);
-	while(c4<1 || c4>4){
-		scanf("%d", &c4);
-	}
-	while(c4 == a4 || c4 == b4){
+	while(c4<1 || c4>4 || c4==a4 || c4==b4){
 		scanf("%d", &c4);
 	}
 	
 	printf("[d] -> ");
 	scanf("%d", &d4);
-	while(d4<1 || d4>4){
+	while(d4<1 || d4>4 || d4==a4 || d4==b4 || d4==c4){
 		scanf("%d", &d4);
-	}
-	while(d4 == a4 || d4 == b4 || d4 == c4){
-		scanf("%d", &d4);
-	}
+	}	
 }
 
 void question5(void){
@@ -375,30 +340,21 @@ void question5(void){
 	
 	printf("[b] -> ");
 	scanf("%d", &b5);	
-	while(b5<1 || b5>4){
+	while(b5<1 || b5>4 || b5==a5){
 		scanf("%d", &b5);
-	}
-	while(b5 == a5){
-		scanf("%d", &b5);
-	}
+	}	
 	
 	printf("[c] -> ");
 	scanf("%d", &c5);
-	while(c5<1 || c5>4){
-		scanf("%d", &c5);
-	}
-	while(c5 == a5 || c5 == b5){
+	while(c5<1 || c5>4 || c5==a5 || c5==b5){
 		scanf("%d", &c5);
 	}
 	
 	printf("[d] -> ");
 	scanf("%d", &d5);
-	while(d5<1 || d5>4){
+	while(d5<1 || d5>4 || d5==a5 || d5==b5 || d5==c5){
 		scanf("%d", &d5);
-	}
-	while(d5 == a5 || d5 == b5 || d5 == c5){
-		scanf("%d", &d5);
-	}		
+	}			
 }
 
 
