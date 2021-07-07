@@ -108,16 +108,18 @@ void layout(void){
 		break;
 		case 52:
 			{
-				printf("Você escolheu a opção 4\n");
+			
 				system("REFERENCIAL_TEORICO.txt"); //mostra o arquivo na tela
 				layout();
 			}
 		break;
 		case 102:
 			printf("Finalizado\n");
+			exit(0);
 		break;
 		case 70:
 			printf("Finalizado\n");
+			exit(0);
 		break;
 		default:
 			system("cls");
