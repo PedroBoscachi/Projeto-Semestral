@@ -137,6 +137,7 @@ void createFile(char nome[30], char pront[20]){
   
   //abrindo o arquivo com tipo de abertura w
   
+  strcat(nome," ");
   strcat(nome,pront);
   strcat(nome,txt);
   strcpy(file_name,nome);
@@ -144,8 +145,11 @@ void createFile(char nome[30], char pront[20]){
   for(i=0; i<(strlen(file_name)-1); i++){
   	if(isspace(file_name[i])){
   		file_name[i] = replacement;
-	  }	  	
-  }
+	  }	 
+	if(file_name[i] == '\n'){
+		file_name[i] = replacement;
+	} 	
+  }  
   
   pont_arq = fopen(file_name, "w");
   
