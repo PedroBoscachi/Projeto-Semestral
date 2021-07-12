@@ -15,6 +15,7 @@ void question4(void);
 void question5(void);
 float calculate();
 void resultado(void);
+void interface3(void);
 
 int aud[5];
 int cin[5];
@@ -87,23 +88,7 @@ void layout(void){
 		break;
 		case 51:
 			{
-				system("cls");
-				printf("Você escolheu a opção 3\n");				
-				test();
-				question1();
-				system("cls");
-				test();
-				question2();
-				system("cls");
-				test();
-				question3();
-				system("cls");
-				test();
-				question4();
-				system("cls");
-				test();
-				question5();
-				
+				interface3();				
 			}
 		break;
 		case 52:
@@ -131,27 +116,9 @@ void layout(void){
 			layout();
 			break;
 	};
-
-} else{
-	
-	system("cls");
-	test();
-	question1();
-	system("cls");
-	test();
-	question2();
-	system("cls");
-	test();
-	question3();
-	system("cls");
-	test();
-	question4();
-	system("cls");
-	test();
-	question5();
-	
+} else{	
+	interface3();	
 }
-
 	return;
 }
 
@@ -159,6 +126,8 @@ void layout(void){
 
 void createFile(char nome[30], char pront[20]){
 	char txt[] = ".txt";
+	char replacement = '_';
+	char file_name[30];
 	
 	int tamanho;
 	int i;
@@ -168,7 +137,20 @@ void createFile(char nome[30], char pront[20]){
   
   //abrindo o arquivo com tipo de abertura w
   
-  pont_arq = fopen(strcat(strcat(nome,pront),txt), "w");
+  strcat(nome,pront);
+  strcat(nome,txt);
+  strcpy(file_name,nome);
+  
+  for(i=0; i<(strlen(file_name)-1); i++){
+  	if(isspace(file_name[i])){
+  		file_name[i] = replacement;
+	  }	  	
+  }
+  
+  pont_arq = fopen(file_name, "w");
+  
+  printf("%s", pont_arq);
+  system("pause");
   
   //testando se o arquivo foi realmente criado
   if(pont_arq == NULL)
@@ -495,6 +477,25 @@ void resultado(void){
 	
 
 	return 0;
+}
+
+void interface3(void){
+	
+	system("cls");
+	test();
+	question1();
+	system("cls");
+	test();
+	question2();
+	system("cls");
+	test();
+	question3();
+	system("cls");
+	test();
+	question4();
+	system("cls");
+	test();
+	question5();
 }
 
 
