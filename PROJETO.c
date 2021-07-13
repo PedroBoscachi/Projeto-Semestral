@@ -34,11 +34,9 @@ int main(){
 	login();
 	layout();
 	createFile(name,prontuario);
-	resultado();
-	
-		
+	resultado();	
 
-	return 0;
+	return 0;				
 }
 
 
@@ -128,12 +126,13 @@ void createFile(char nome[30], char pront[20]){
 	char txt[] = ".txt";
 	char replacement = '_';
 	char file_name[30];
-	
+	char resultados[100] = "RESULTADO_";
 	int tamanho;
 	int i;
-	
+	char msg[10] = "Teste";
+	 
 	FILE *pont_arq; // cria variável ponteiro para o arquivo
-  	char palavra[100]; // variável do tipo string
+  	char palavra[100] = "Eu"; // variável do tipo string
   
   //abrindo o arquivo com tipo de abertura w
   
@@ -149,12 +148,20 @@ void createFile(char nome[30], char pront[20]){
 	if(file_name[i] == '\n'){
 		file_name[i] = replacement;
 	} 	
-  }  
+  } 
+  strcat(resultados,file_name);
   
-  pont_arq = fopen(file_name, "w");
+  pont_arq = fopen(resultados, "w");
   
+  fprintf(pont_arq, "%s", msg);
+  
+  fclose(pont_arq);
   printf("%s", pont_arq);
   system("pause");
+  
+  
+  
+  
   
   //testando se o arquivo foi realmente criado
   if(pont_arq == NULL)
@@ -465,6 +472,7 @@ float calculate(int type[5]){
 
 
 void resultado(void){
+	
 	system("cls");
 	printf("\n");
 	printf("============================RESULTADO============================");
@@ -480,7 +488,7 @@ void resultado(void){
 
 	
 
-	return 0;
+	return 	0;
 }
 
 void interface3(void){
