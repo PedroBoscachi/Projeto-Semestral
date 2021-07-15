@@ -129,7 +129,8 @@ void createFile(char nome[30], char pront[20]){
 	char resultados[100] = "RESULTADO_";
 	int tamanho;
 	int i;
-	char msg[10] = "Teste";
+	char user[30] = "";
+	strcpy(user,nome);
 	 
 	FILE *pont_arq; // cria variável ponteiro para o arquivo
   	char palavra[100] = "Eu"; // variável do tipo string
@@ -153,7 +154,14 @@ void createFile(char nome[30], char pront[20]){
   
   pont_arq = fopen(resultados, "w");
   
-  fprintf(pont_arq, "%s", msg);
+  fprintf(pont_arq, "================ Perfil representacional de %s ===============\n",user);
+  fprintf(pont_arq, "Visual: %.0f%% || Auditivo: %.0f%% || Cinestésico: %.0f%% || Digital: %.0f%%\n", calculate(vis),calculate(aud),calculate(cin),calculate(dig));
+  fprintf(pont_arq, "===============================================================\n");
+  fprintf(pont_arq, "* Algumas pessoas captam melhor as mensagens do mundo exterior através da audição, são as pessoas chamadas auditivas.\n");
+  fprintf(pont_arq, "* Outras pessoas sentem necessidade de perguntar muito, necessitam de muitas informações e fatos. Estas são as digitais.\n");
+  fprintf(pont_arq, "* As cinestésicas aprendem melhor por meio das sensações táteis, como o tato, a temperatura, a umidade, as sensações internas e as emoções..\n");
+  fprintf(pont_arq, "* Já as pessoas visuais aprendem melhor quando se valendo da visão.");
+  
   
   fclose(pont_arq);
   printf("%s", pont_arq);
