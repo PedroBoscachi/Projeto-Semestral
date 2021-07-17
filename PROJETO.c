@@ -16,11 +16,14 @@ void question5(void);
 float calculate();
 void resultado(void);
 void interface3(void);
+void perfil(void);
 
 int aud[5];
 int cin[5];
 int vis[5];
 int dig[5];
+
+char User_Profile[] = "Seu perfil:";
 
 
 
@@ -33,8 +36,8 @@ int main(){
 	void layout(void);
 	login();
 	layout();
-	createFile(name,prontuario);
-	resultado();	
+	resultado();
+	createFile(name,prontuario);	
 
 	return 0;				
 }
@@ -129,7 +132,8 @@ void createFile(char nome[30], char pront[20]){
 	char resultados[100] = "RESULTADO_";
 	int tamanho;
 	int i;
-	char msg[10] = "Teste";
+	char user[30] = "";
+	strcpy(user,nome);
 	 
 	FILE *pont_arq; // cria variável ponteiro para o arquivo
   	char palavra[100] = "Eu"; // variável do tipo string
@@ -153,7 +157,15 @@ void createFile(char nome[30], char pront[20]){
   
   pont_arq = fopen(resultados, "w");
   
-  fprintf(pont_arq, "%s", msg);
+  fprintf(pont_arq, "================ Perfil representacional de %s ===============\n",user);
+  fprintf(pont_arq, "Visual: %.0f%% || Auditivo: %.0f%% || Cinestésico: %.0f%% || Digital: %.0f%%\n", calculate(vis),calculate(aud),calculate(cin),calculate(dig));
+  fprintf(pont_arq, "===============================================================\n");
+  fprintf(pont_arq, "* Algumas pessoas captam melhor as mensagens do mundo exterior através da audição, são as pessoas chamadas auditivas.\n");
+  fprintf(pont_arq, "* Outras pessoas sentem necessidade de perguntar muito, necessitam de muitas informações e fatos. Estas são as digitais.\n");
+  fprintf(pont_arq, "* As cinestésicas aprendem melhor por meio das sensações táteis, como o tato, a temperatura, a umidade, as sensações internas e as emoções..\n");
+  fprintf(pont_arq, "* Já as pessoas visuais aprendem melhor quando se valendo da visão.\n"); 
+  fprintf(pont_arq, "===============================================================\n");
+  fprintf(pont_arq, "\n%s", User_Profile);
   
   fclose(pont_arq);
   printf("%s", pont_arq);
@@ -486,22 +498,10 @@ void resultado(void){
 	printf("Auditivo: %.0f%%", calculate(aud));
 	
 	printf("\n");
+	
+	perfil();
 
-	if(calculate(vis)>calculate(dig) && calculate(vis)>calculate(cin) && calculate(vis)>calculate(aud)){
-		printf("\n                    Seu perfil: Visual.");
-	}
-	else
-		if(calculate(dig)>calculate(vis) && calculate(dig)>calculate(cin) && calculate(dig)>calculate(aud)){
-			printf("\n                      Seu perfil: Digital.");
-		}
-		else
-			if(calculate(cin)>calculate(vis) && calculate(cin)>calculate(dig) && calculate(cin)>calculate(aud)){
-				printf("\n                        Seu perfil: Cinestésico.");
-			}
-			else{
-				printf("\n                        Seu perfil: Auditivo.");
-			}
-
+	
 	return 	0;
 }
 
@@ -522,6 +522,59 @@ void interface3(void){
 	system("cls");
 	test();
 	question5();
+}
+
+void perfil(void){
+	
+	if(calculate(vis)>calculate(dig) && calculate(vis)>calculate(cin) && calculate(vis)>calculate(aud)){
+		strcat(User_Profile," Visual");
+		printf("\n%s\n", User_Profile);
+	}
+	else
+		if(calculate(dig)>calculate(vis) && calculate(dig)>calculate(cin) && calculate(dig)>calculate(aud)){
+			strcat(User_Profile," Digital");
+			printf("\n%s\n", User_Profile);
+		}
+		else
+			if(calculate(cin)>calculate(vis) && calculate(cin)>calculate(dig) && calculate(cin)>calculate(aud)){
+				strcat(User_Profile," Cinestésico");
+				printf("\n%s\n", User_Profile);
+			}
+			else
+				if(calculate(aud)>calculate(vis) && calculate(aud)>calculate(dig) && calculate(aud)>calculate(cin)){
+					strcat(User_Profile," Auditivo");
+					printf("\n%s\n", User_Profile);
+			    }
+			    else
+			    	if(calculate(vis)==calculate(dig)){			    		
+			    		strcat(User_Profile," Visual/Digital");
+			    		printf("\n%s\n", User_Profile);
+					}
+					else
+						if(calculate(vis)==calculate(cin)){
+							strcat(User_Profile," Visual/Cinestésico");
+							printf("\n%s\n", User_Profile);
+						}
+						else
+							if(calculate(vis)==calculate(aud)){
+								strcat(User_Profile," Visual/Auditivo");
+								printf("\n%s\n", User_Profile);
+							}
+							else
+								if(calculate(dig)==calculate(cin)){
+									strcat(User_Profile," Digital/Cinestésico");
+									printf("\n%s\n", User_Profile);
+								}
+								else
+									if(calculate(dig)==calculate(aud)){
+										strcat(User_Profile," Digital/Auditivo");
+										printf("\n%s\n", User_Profile);
+									}
+									else
+										if(calculate(cin)==calculate(aud)){
+											strcat(User_Profile," Cinestésico/Auditivo");
+											printf("\n%s\n", User_Profile);
+										}
 }
 
 
