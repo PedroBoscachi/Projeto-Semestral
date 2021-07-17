@@ -484,9 +484,23 @@ void resultado(void){
 	printf("Cinestésico: %.0f%%", calculate(cin));
 	printf(" || ");
 	printf("Auditivo: %.0f%%", calculate(aud));
-
-
 	
+	printf("\n");
+
+	if(calculate(vis)>calculate(dig) && calculate(vis)>calculate(cin) && calculate(vis)>calculate(aud)){
+		printf("\n                    Seu perfil: Visual.");
+	}
+	else
+		if(calculate(dig)>calculate(vis) && calculate(dig)>calculate(cin) && calculate(dig)>calculate(aud)){
+			printf("\n                      Seu perfil: Digital.");
+		}
+		else
+			if(calculate(cin)>calculate(vis) && calculate(cin)>calculate(dig) && calculate(cin)>calculate(aud)){
+				printf("\n                        Seu perfil: Cinestésico.");
+			}
+			else{
+				printf("\n                        Seu perfil: Auditivo.");
+			}
 
 	return 	0;
 }
