@@ -167,6 +167,7 @@ void createFile(char nome[30], char pront[20]){
   fprintf(pont_arq, "===============================================================\n");
   fprintf(pont_arq, "\n%s", User_Profile);
   
+  
   fclose(pont_arq);
   printf("%s", pont_arq);
   system("pause");
