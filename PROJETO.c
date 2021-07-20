@@ -17,6 +17,7 @@ float calculate();
 void resultado(void);
 void interface3(void);
 void perfil(void);
+int questionario(void);
 
 int aud[5];
 int cin[5];
@@ -58,7 +59,7 @@ void login(void){
 
 
 void layout(void){
-
+	setbuf(stdin,NULL);
 	int compare;
 	compare = stricmp(name, "MASTER");
 
@@ -69,7 +70,6 @@ void layout(void){
 	printf("\t              TESTE DOS SISTEMAS REPRESENTACIONAIS\n");
 	printf("================================================================================\n");
 	printf("                      1. Cadastrar questionário\n");
-	scanf("%c", &number);
 	printf("                      2. Visualizar questionário\n");
 	printf("                      3. Realizar teste\n");
 	printf("                      4. Sobre o teste\n");
@@ -82,7 +82,9 @@ void layout(void){
 	{
 	
 		case 49:
-			printf("Você escolheu a opção 1\n");
+			system("cls");
+			
+			questionario();
 		break;
 		case 50:
 			printf("Você escolheu a opção 2\n");
@@ -576,6 +578,63 @@ void perfil(void){
 											strcat(User_Profile," Cinestésico/Auditivo");
 											printf("\n%s\n", User_Profile);
 										}
+}
+
+
+int questionario(void)
+{
+	setbuf(stdin,NULL);
+	
+	int nrofrase[5] = {1,2,3,4,5};
+	char frase[5][100];
+	char item_1[5][100]; // cinestesico
+	char item_2[5][100]; // auditivo
+	char item_3[5][100]; // visual
+	char item_4[5][100]; // digital
+	char perfis[4][100] = {"Cinestesico","Auditivo","Visual","Digital"};
+	char aux[100];
+	
+	int i,j,k;
+	for(i=0;i<5;i++){
+		system("cls");
+		printf("Digite a frase %i: ", nrofrase[i]);
+		gets(frase[i]);
+		printf("======================================\n");
+		
+		for(k=0;k<4;k++){
+			printf("%s -> %s: ", perfis[k],frase[i]);
+			
+			switch(k){
+				case 0:
+				gets(item_1[i]);
+				break;
+				case 1:
+				gets(item_2[i]);
+				break;	
+				case 2:
+				gets(item_3[i]);
+				break;	
+				case 3:
+				gets(item_4[i]);
+				break;		
+			}
+				
+			
+	}
+		
+		
+	}
+	
+	
+	// MOSTRAR O QUESTIONARIO
+//	for(i=0;i<5;i++){
+//		printf("Frase %i ", i+1);	
+//		printf("%s  :  %s || %s || %s || %s",frase[i],item_1[i],item_2[i],item_3[i],item_4[i]);
+//		printf("\n");		
+//	   	
+//	}
+return 0;
+		
 }
 
 
