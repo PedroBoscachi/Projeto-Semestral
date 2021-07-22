@@ -18,6 +18,8 @@ void resultado(void);
 void interface3(void);
 void perfil(void);
 int questionario(void);
+void copiarArquivo(FILE *file_quest, FILE *file_quest2);
+void option2(void);
 
 int aud[5];
 int cin[5];
@@ -25,7 +27,7 @@ int vis[5];
 int dig[5];
 
 char User_Profile[] = "Seu perfil:";
-
+FILE *file_quest;
 
 
 
@@ -34,11 +36,10 @@ int main(){
 	setlocale(LC_ALL,"portuguese");
 	void createFile(name,prontuario);
 	void login(void);
-	void layout(void);
+	void layout(void);	
 	login();
 	layout();
-	resultado();
-	createFile(name,prontuario);	
+	createFile(name,prontuario);			
 
 	return 0;				
 }
@@ -82,21 +83,24 @@ void layout(void){
 	{
 	
 		case 49:
-			system("cls");
-			
+			system("cls");									
 			questionario();
+			layout();
 		break;
 		case 50:
-			printf("Você escolheu a opção 2\n");
+			option2();
+			system("QUESTIONÁRIO_1.txt");
+			layout();
 		break;
 		case 51:
 			{
-				interface3();				
+				interface3();
+				system("pause");
+				layout();				
 			}
 		break;
 		case 52:
-			{
-			
+			{			
 				system("REFERENCIAL_TEORICO.txt"); //mostra o arquivo na tela
 				layout();
 			}
@@ -159,14 +163,14 @@ void createFile(char nome[30], char pront[20]){
   
   pont_arq = fopen(resultados, "w");
   
-  fprintf(pont_arq, "================ Perfil representacional de %s ===============\n",user);
+  fprintf(pont_arq, "================ Perfil representacional de %s ================\n",user);
   fprintf(pont_arq, "Visual: %.0f%% || Auditivo: %.0f%% || Cinestésico: %.0f%% || Digital: %.0f%%\n", calculate(vis),calculate(aud),calculate(cin),calculate(dig));
-  fprintf(pont_arq, "===============================================================\n");
+  fprintf(pont_arq, "================================================================================================================================================\n");
   fprintf(pont_arq, "* Algumas pessoas captam melhor as mensagens do mundo exterior através da audição, são as pessoas chamadas auditivas.\n");
   fprintf(pont_arq, "* Outras pessoas sentem necessidade de perguntar muito, necessitam de muitas informações e fatos. Estas são as digitais.\n");
   fprintf(pont_arq, "* As cinestésicas aprendem melhor por meio das sensações táteis, como o tato, a temperatura, a umidade, as sensações internas e as emoções..\n");
   fprintf(pont_arq, "* Já as pessoas visuais aprendem melhor quando se valendo da visão.\n"); 
-  fprintf(pont_arq, "===============================================================\n");
+  fprintf(pont_arq, "================================================================================================================================================\n");
   fprintf(pont_arq, "\n%s", User_Profile);
   
   
@@ -525,6 +529,7 @@ void interface3(void){
 	system("cls");
 	test();
 	question5();
+	resultado();
 }
 
 void perfil(void){
@@ -581,8 +586,7 @@ void perfil(void){
 }
 
 
-int questionario(void)
-{
+int questionario(void){
 	setbuf(stdin,NULL);
 	
 	int nrofrase[5] = {1,2,3,4,5};
@@ -617,14 +621,42 @@ int questionario(void)
 				case 3:
 				gets(item_4[i]);
 				break;		
-			}
-				
-			
+			}							
+	}			
 	}
-		
-		
-	}
+	int val = 0;
+	file_quest = fopen("TESTE_SISTEMA_REPRESENTACIONAL.dat", "wb");	
 	
+	fprintf(file_quest, "=================================================================================================================================================================================\n");
+	fprintf(file_quest, "%-10s%20s %20s%20s%20s%20s%20s%20s%20s%20s\n", "NroFrase", "Frase", "Cinestésico", "item_1", "Auditivo", "item_2", "Visual", "item_3", "Digital", "item_4");
+	fprintf(file_quest, "=================================================================================================================================================================================\n");
+	for(i=0; i<5; i++){
+		fprintf(file_quest, "%-5d%20s     %20d     %20s     %20d     %20s     %20d     %20s     %20d     %20s\n", nrofrase[i], frase[i], val, item_1[i], val, item_2[i], val, item_3[i], val, item_4);
+		fprintf(file_quest, "=================================================================================================================================================================================\n");		
+	}
+	fclose(file_quest);					
+	return 0;	
+}
+
+void option2(void){
+	file_quest = fopen("TESTE_SISTEMA_REPRESENTACIONAL.dat", "rb");		
+	FILE *file_quest2;
+	file_quest2 = fopen("QUESTIONÁRIO_1.txt", "w");
+	
+	copiarArquivo(file_quest, file_quest2);
+	fclose(file_quest2);
+	fclose(file_quest);
+}
+
+
+
+void copiarArquivo(FILE *file_quest, FILE *file_quest2){
+	char leitor[10000];
+	while(fgets(leitor, 1000, file_quest) != NULL){
+		fputs(leitor, file_quest2);
+	}
+	return 0;
+}
 	
 	// MOSTRAR O QUESTIONARIO
 //	for(i=0;i<5;i++){
@@ -633,9 +665,9 @@ int questionario(void)
 //		printf("\n");		
 //	   	
 //	}
-return 0;
+
 		
-}
+
 
 
 
