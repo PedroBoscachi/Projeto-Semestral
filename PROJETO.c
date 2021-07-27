@@ -8,6 +8,7 @@
 char number;
 char name[30];
 char prontuario[20];
+void createFile(name,prontuario);
 void test(void);
 void question1(void);
 void question2(void);
@@ -36,13 +37,19 @@ FILE *file_quest;
 
 int main(){
 	
-	setlocale(LC_ALL,"portuguese");
-	void createFile(name,prontuario);
+	setlocale(LC_ALL,"portuguese");	
 	void login(void);
 	void layout(void);	
 	login();
-	layout();
-	createFile(name,prontuario);			
+	int compare;
+	compare = stricmp(name, "MASTER"); //coloquei aqui para arrumar o momento do createFile
+	if(compare == 0){
+		layout();
+	}
+	else{
+		interface3();
+		createFile(name,prontuario);
+	}					
 
 	return 0;				
 }
@@ -56,19 +63,13 @@ void login(void){
 	printf("DIGITE SEU PRONTUÁRIO:  ");
 	scanf("%s", prontuario);
 	
-	
 	return;
 }
 
 
 
 void layout(void){
-	setbuf(stdin,NULL);
-	int compare;
-	compare = stricmp(name, "MASTER");
-
-	if(compare == 0)
-	{
+	setbuf(stdin,NULL);	
 	system("cls");	
 	printf("================================================================================\n");
 	printf("\t              TESTE DOS SISTEMAS REPRESENTACIONAIS\n");
@@ -97,7 +98,7 @@ void layout(void){
 		break;
 		case 51:
 			{
-				interface3();
+				interface3();				
 				system("pause");
 				layout();				
 			}
@@ -110,10 +111,12 @@ void layout(void){
 		break;
 		case 102:
 			printf("Finalizado\n");
+			createFile(name,prontuario);
 			exit(0);
 		break;
 		case 70:
 			printf("Finalizado\n");
+			createFile(name,prontuario);
 			exit(0);
 		break;
 		default:
@@ -126,14 +129,9 @@ void layout(void){
 			layout();
 			break;
 	};
-} else{	
-	interface3();	
-}
 	return;
-}
-
-
-
+} 	
+	
 void createFile(char nome[30], char pront[20]){
 	char txt[] = ".txt";
 	char replacement = '_';
@@ -163,7 +161,6 @@ void createFile(char nome[30], char pront[20]){
 	} 	
   } 
   strcat(resultados,file_name);
-  
   pont_arq = fopen(resultados, "w");
   
   fprintf(pont_arq, "================ Perfil representacional de %s ================\n",user);
@@ -174,7 +171,7 @@ void createFile(char nome[30], char pront[20]){
   fprintf(pont_arq, "* As cinestésicas aprendem melhor por meio das sensações táteis, como o tato, a temperatura, a umidade, as sensações internas e as emoções..\n");
   fprintf(pont_arq, "* Já as pessoas visuais aprendem melhor quando se valendo da visão.\n"); 
   fprintf(pont_arq, "================================================================================================================================================\n");
-  fprintf(pont_arq, "\nSeu perfil é: ");
+  fprintf(pont_arq, "\nSeu perfil é: %s", perfils());
 	
   
   
@@ -193,7 +190,7 @@ void createFile(char nome[30], char pront[20]){
   return 1;
   }
   
-  return;
+  return 0;
 	
 }
 
@@ -509,8 +506,8 @@ void resultado(void){
 	printf("Auditivo: %.0f%%", calculate(aud));
 	
 	printf("\n");
-	
-	printf("Seu perfil é: %s", perfils());
+	perfils();
+	printf("Seu perfil é: %s", resultado);
 	perfils();
 
 
@@ -535,8 +532,7 @@ void interface3(void){
 	question4();
 	system("cls");
 	test();
-	question5();
-	resultado();
+	question5();	
 }
 
 
@@ -618,7 +614,7 @@ char perfils(){
 	perfil[2] = calculate(vis);
 	perfil[3] = calculate(aud);
 	
-	char resultado[100] = "";
+	char resultado[100] = "->";
 	
 	int maior = 0;
 	int i;
