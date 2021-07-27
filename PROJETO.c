@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <locale.h>
 #include <string.h>
+#include <conio.h>
 
 
 char number;
@@ -20,11 +21,13 @@ void perfil(void);
 int questionario(void);
 void copiarArquivo(FILE *file_quest, FILE *file_quest2);
 void option2(void);
+char perfils();
 
 int aud[5];
 int cin[5];
 int vis[5];
 int dig[5];
+
 
 char User_Profile[] = "Seu perfil:";
 FILE *file_quest;
@@ -171,7 +174,8 @@ void createFile(char nome[30], char pront[20]){
   fprintf(pont_arq, "* As cinestésicas aprendem melhor por meio das sensações táteis, como o tato, a temperatura, a umidade, as sensações internas e as emoções..\n");
   fprintf(pont_arq, "* Já as pessoas visuais aprendem melhor quando se valendo da visão.\n"); 
   fprintf(pont_arq, "================================================================================================================================================\n");
-  fprintf(pont_arq, "\n%s", User_Profile);
+  fprintf(pont_arq, "\nSeu perfil é: ");
+	
   
   
   fclose(pont_arq);
@@ -189,8 +193,6 @@ void createFile(char nome[30], char pront[20]){
   return 1;
   }
   
-  
- 
   return;
 	
 }
@@ -475,6 +477,7 @@ void question5(void){
 
 
 float calculate(int type[5]){
+	int perfil[4];
 	float result;
 	int sum = 0;
 	int i;
@@ -485,6 +488,7 @@ float calculate(int type[5]){
 	
 	result = sum * 2;
 	
+
 	
 	return result;
 }
@@ -506,8 +510,11 @@ void resultado(void){
 	
 	printf("\n");
 	
-	perfil();
+	printf("Seu perfil é: %s", perfils());
+	perfils();
 
+
+	printf("\n");
 	
 	return 	0;
 }
@@ -530,59 +537,6 @@ void interface3(void){
 	test();
 	question5();
 	resultado();
-}
-
-void perfil(void){
-	
-	if(calculate(vis)>calculate(dig) && calculate(vis)>calculate(cin) && calculate(vis)>calculate(aud)){
-		strcat(User_Profile," Visual");
-		printf("\n%s\n", User_Profile);
-	}
-	else
-		if(calculate(dig)>calculate(vis) && calculate(dig)>calculate(cin) && calculate(dig)>calculate(aud)){
-			strcat(User_Profile," Digital");
-			printf("\n%s\n", User_Profile);
-		}
-		else
-			if(calculate(cin)>calculate(vis) && calculate(cin)>calculate(dig) && calculate(cin)>calculate(aud)){
-				strcat(User_Profile," Cinestésico");
-				printf("\n%s\n", User_Profile);
-			}
-			else
-				if(calculate(aud)>calculate(vis) && calculate(aud)>calculate(dig) && calculate(aud)>calculate(cin)){
-					strcat(User_Profile," Auditivo");
-					printf("\n%s\n", User_Profile);
-			    }
-			    else
-			    	if(calculate(vis)==calculate(dig)){			    		
-			    		strcat(User_Profile," Visual/Digital");
-			    		printf("\n%s\n", User_Profile);
-					}
-					else
-						if(calculate(vis)==calculate(cin)){
-							strcat(User_Profile," Visual/Cinestésico");
-							printf("\n%s\n", User_Profile);
-						}
-						else
-							if(calculate(vis)==calculate(aud)){
-								strcat(User_Profile," Visual/Auditivo");
-								printf("\n%s\n", User_Profile);
-							}
-							else
-								if(calculate(dig)==calculate(cin)){
-									strcat(User_Profile," Digital/Cinestésico");
-									printf("\n%s\n", User_Profile);
-								}
-								else
-									if(calculate(dig)==calculate(aud)){
-										strcat(User_Profile," Digital/Auditivo");
-										printf("\n%s\n", User_Profile);
-									}
-									else
-										if(calculate(cin)==calculate(aud)){
-											strcat(User_Profile," Cinestésico/Auditivo");
-											printf("\n%s\n", User_Profile);
-										}
 }
 
 
@@ -631,7 +585,7 @@ int questionario(void){
 	fprintf(file_quest, "%-10s%20s %20s%20s%20s%20s%20s%20s%20s%20s\n", "NroFrase", "Frase", "Cinestésico", "item_1", "Auditivo", "item_2", "Visual", "item_3", "Digital", "item_4");
 	fprintf(file_quest, "=================================================================================================================================================================================\n");
 	for(i=0; i<5; i++){
-		fprintf(file_quest, "%-5d%20s     %20d     %20s     %20d     %20s     %20d     %20s     %20d     %20s\n", nrofrase[i], frase[i], val, item_1[i], val, item_2[i], val, item_3[i], val, item_4);
+		fprintf(file_quest, "%-5d%20s     %20d     %20s     %20d     %20s     %20d     %20s     %20d     %20s\n", nrofrase[i], frase[i], val, item_1[i], val, item_2[i], val, item_3[i], val, item_4[i]);
 		fprintf(file_quest, "=================================================================================================================================================================================\n");		
 	}
 	fclose(file_quest);					
@@ -649,7 +603,6 @@ void option2(void){
 }
 
 
-
 void copiarArquivo(FILE *file_quest, FILE *file_quest2){
 	char leitor[10000];
 	while(fgets(leitor, 1000, file_quest) != NULL){
@@ -657,14 +610,40 @@ void copiarArquivo(FILE *file_quest, FILE *file_quest2){
 	}
 	return 0;
 }
+
+char perfils(){
+	int perfil[4];
+	perfil[0] = calculate(cin);
+	perfil[1] = calculate(dig);
+	perfil[2] = calculate(vis);
+	perfil[3] = calculate(aud);
 	
-	// MOSTRAR O QUESTIONARIO
-//	for(i=0;i<5;i++){
-//		printf("Frase %i ", i+1);	
-//		printf("%s  :  %s || %s || %s || %s",frase[i],item_1[i],item_2[i],item_3[i],item_4[i]);
-//		printf("\n");		
-//	   	
-//	}
+	char resultado[100] = "";
+	
+	int maior = 0;
+	int i;
+	int ja;
+	
+	for(i=0;i<4;i++){
+		if(perfil[i] > maior){
+			maior = perfil[i];
+		}
+	}
+	
+//	perfil[0] == maior ? printf("/ Cinestésico ") : ja--;
+//	perfil[1] == maior ? printf("/ Digital") : ja--;
+//	perfil[2] == maior ? printf("/ Visual ") : ja--;
+//	perfil[3] == maior ? printf("/ Auditivo ") : ja--;
+	
+	perfil[0] == maior ? strcat(resultado," / Cinestésico") : ja--;
+	perfil[1] == maior ? strcat(resultado," / Digital") : ja--;
+	perfil[2] == maior ? strcat(resultado," / Visual") : ja--;
+	perfil[3] == maior ? strcat(resultado," / Auditivo") : ja--;
+
+	return resultado;
+	
+}
+	
 
 		
 
