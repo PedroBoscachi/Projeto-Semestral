@@ -111,12 +111,16 @@ void layout(void){
 		break;
 		case 102:
 			printf("Finalizado\n");
-			createFile(name,prontuario);
+			if(calculate(vis) > 1){
+				createFile(name,prontuario);
+			}
 			exit(0);
 		break;
 		case 70:
 			printf("Finalizado\n");
-			createFile(name,prontuario);
+			if(calculate(vis) > 1){
+				createFile(name,prontuario);
+			}			
 			exit(0);
 		break;
 		default:
@@ -171,7 +175,7 @@ void createFile(char nome[30], char pront[20]){
   fprintf(pont_arq, "* As cinestésicas aprendem melhor por meio das sensações táteis, como o tato, a temperatura, a umidade, as sensações internas e as emoções..\n");
   fprintf(pont_arq, "* Já as pessoas visuais aprendem melhor quando se valendo da visão.\n"); 
   fprintf(pont_arq, "================================================================================================================================================\n");
-  fprintf(pont_arq, "\nSeu perfil é: %s", perfils());
+  fprintf(pont_arq, "\nSeu perfil é: ");
 	
   
   
