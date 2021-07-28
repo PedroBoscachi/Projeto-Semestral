@@ -667,7 +667,6 @@ void perfils(void){
 	perfilgroup[1] = calculate(dig);
 	perfilgroup[2] = calculate(vis);
 	perfilgroup[3] = calculate(aud);
-
 	
 	int maior = 0;
 	int i;
@@ -692,11 +691,6 @@ void perfils(void){
 	return ;
 	
 }
-
-
-
-
-
 
 void customQuest(){
 	char abc[4][10] = {"a","b","c","d"};
@@ -749,21 +743,8 @@ void customQuest(){
 					}
 				dig[i] = resp;
 				break;
-			}
-			
-		}
-				
-	}
-	
-	resultado();
-
-	
+			}			
+		}				
+	}	
+	resultado();	
 }
-	
-
-		
-
-
-
-
-
