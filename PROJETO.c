@@ -22,7 +22,7 @@ void perfil(void);
 int questionario(void);
 void copiarArquivo(FILE *file_quest, FILE *file_quest2);
 void option2(void);
-char perfils();
+void perfils(void);
 
 int aud[5];
 int cin[5];
@@ -30,7 +30,21 @@ int vis[5];
 int dig[5];
 
 
-char User_Profile[] = "Seu perfil:";
+
+
+int nrofrase[5] = {1,2,3,4,5};
+char frase[5][100];
+char item_1[5][100]; // cinestesico
+char item_2[5][100]; // auditivo
+char item_3[5][100]; // visual
+char item_4[5][100]; // digital
+char perfis[4][100] = {"Cinestesico","Auditivo","Visual","Digital"};
+
+
+char perfilDominante[100] = "->";
+
+int auxiliar = 0;
+
 FILE *file_quest;
 
 
@@ -69,6 +83,11 @@ void login(void){
 
 
 void layout(void){
+	int auxi;
+	
+	void customQuest(void);
+	
+
 	setbuf(stdin,NULL);	
 	system("cls");	
 	printf("================================================================================\n");
@@ -98,9 +117,33 @@ void layout(void){
 		break;
 		case 51:
 			{
-				interface3();				
-				system("pause");
-				layout();				
+				if(auxiliar == 1){
+				printf("\n");			
+				printf("Qual teste deseja realizar?\n");
+				
+				printf("1. Padrão\n");
+				printf("2. Personalizado\n");
+				scanf("%i",&auxi);
+				switch(auxi){
+					
+					case 1:
+						system("cls");
+						interface3();
+						layout();
+						break;
+					case 2:
+						customQuest();
+						break;
+				}
+				
+				} else{
+					interface3();
+					layout();
+				}
+						
+
+	
+			
 			}
 		break;
 		case 52:
@@ -175,7 +218,7 @@ void createFile(char nome[30], char pront[20]){
   fprintf(pont_arq, "* As cinestésicas aprendem melhor por meio das sensações táteis, como o tato, a temperatura, a umidade, as sensações internas e as emoções..\n");
   fprintf(pont_arq, "* Já as pessoas visuais aprendem melhor quando se valendo da visão.\n"); 
   fprintf(pont_arq, "================================================================================================================================================\n");
-  fprintf(pont_arq, "\nSeu perfil é: ");
+  fprintf(pont_arq, "\nSeu perfil é: %s", perfilDominante);
 	
   
   
@@ -511,8 +554,8 @@ void resultado(void){
 	
 	printf("\n");
 	perfils();
-	printf("Seu perfil é: %s", resultado);
-	perfils();
+	printf("Seu perfil é: %s", perfilDominante);
+	
 
 
 	printf("\n");
@@ -536,20 +579,24 @@ void interface3(void){
 	question4();
 	system("cls");
 	test();
-	question5();	
+	question5();
+	resultado();
 }
 
 
 int questionario(void){
 	setbuf(stdin,NULL);
 	
-	int nrofrase[5] = {1,2,3,4,5};
-	char frase[5][100];
-	char item_1[5][100]; // cinestesico
-	char item_2[5][100]; // auditivo
-	char item_3[5][100]; // visual
-	char item_4[5][100]; // digital
-	char perfis[4][100] = {"Cinestesico","Auditivo","Visual","Digital"};
+	auxiliar = 1;
+
+	
+//	int nrofrase[5] = {1,2,3,4,5};
+//	char frase[5][100];
+//	char item_1[5][100]; // cinestesico
+//	char item_2[5][100]; // auditivo
+//	char item_3[5][100]; // visual
+//	char item_4[5][100]; // digital
+//	char perfis[4][100] = {"Cinestesico","Auditivo","Visual","Digital"};
 	char aux[100];
 	
 	int i,j,k;
@@ -611,22 +658,21 @@ void copiarArquivo(FILE *file_quest, FILE *file_quest2){
 	return 0;
 }
 
-char perfils(){
-	int perfil[4];
-	perfil[0] = calculate(cin);
-	perfil[1] = calculate(dig);
-	perfil[2] = calculate(vis);
-	perfil[3] = calculate(aud);
-	
-	char resultado[100] = "->";
+void perfils(void){
+	int perfilgroup[4];
+	perfilgroup[0] = calculate(cin);
+	perfilgroup[1] = calculate(dig);
+	perfilgroup[2] = calculate(vis);
+	perfilgroup[3] = calculate(aud);
+
 	
 	int maior = 0;
 	int i;
 	int ja;
 	
 	for(i=0;i<4;i++){
-		if(perfil[i] > maior){
-			maior = perfil[i];
+		if(perfilgroup[i] > maior){
+			maior = perfilgroup[i];
 		}
 	}
 	
@@ -635,12 +681,79 @@ char perfils(){
 //	perfil[2] == maior ? printf("/ Visual ") : ja--;
 //	perfil[3] == maior ? printf("/ Auditivo ") : ja--;
 	
-	perfil[0] == maior ? strcat(resultado," / Cinestésico") : ja--;
-	perfil[1] == maior ? strcat(resultado," / Digital") : ja--;
-	perfil[2] == maior ? strcat(resultado," / Visual") : ja--;
-	perfil[3] == maior ? strcat(resultado," / Auditivo") : ja--;
+	perfilgroup[0] == maior ? strcat(perfilDominante," / Cinestésico") : ja--;
+	perfilgroup[1] == maior ? strcat(perfilDominante," / Digital") : ja--;
+	perfilgroup[2] == maior ? strcat(perfilDominante," / Visual") : ja--;
+	perfilgroup[3] == maior ? strcat(perfilDominante," / Auditivo") : ja--;
+	
+	return ;
+	
+}
 
-	return resultado;
+
+
+
+
+
+void customQuest(){
+	char abc[4][10] = {"a","b","c","d"};
+		
+	int resp;
+	int i;
+	int j;
+	for(i=0;i<5;i++){
+		system("cls");
+		test();
+		printf("\n%i. %s",nrofrase[i],frase[i]);
+		printf("\n%s) %s",abc[0],item_1[i]);
+		printf("\n%s) %s",abc[1],item_2[i]);
+		printf("\n%s) %s",abc[2],item_3[i]);
+		printf("\n%s) %s\n",abc[3],item_4[i]);
+		printf("\n");
+		for(j=0;j<4;j++){
+			printf("[%s] -> ", abc[j]);
+			scanf("%i",&resp);
+			switch(j){
+				case 0:
+					while(resp <1 || resp>4){
+						printf("Digite um número válido [1-4]\n");
+						printf("[%s] -> ", abc[j]);
+						scanf("%i",&resp);
+					}
+				cin[i] = resp;
+				break;
+				case 1:
+					while(resp <1 || resp>4 || resp == cin[i]){
+						printf("Digite um número válido [1-4] ou ainda não utilizado:\n");
+						printf("[%s] -> ", abc[j]);
+						scanf("%i",&resp);
+					}
+				aud[i] = resp;
+				break;
+				case 2:
+				while(resp <1 || resp>4 || resp == cin[i] || resp == aud[i]){
+						printf("Digite um número válido [1-4] ou ainda não utilizado:\n");
+						printf("[%s] -> ", abc[j]);
+						scanf("%i",&resp);
+					}
+				vis[i] = resp;
+				break;
+				case 3:
+					while(resp <1 || resp>4 || resp == cin[i] || resp == aud[i]|| resp == vis[i]){
+						printf("Digite um número válido [1-4] ou ainda não utilizado:\n");
+						printf("[%s] -> ", abc[j]);
+						scanf("%i",&resp);
+					}
+				dig[i] = resp;
+				break;
+			}
+			
+		}
+				
+	}
+	
+	resultado();
+
 	
 }
 	
