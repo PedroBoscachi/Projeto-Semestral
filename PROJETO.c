@@ -39,6 +39,7 @@ char item_2[5][100]; // auditivo
 char item_3[5][100]; // visual
 char item_4[5][100]; // digital
 char perfis[4][100] = {"Cinestesico","Auditivo","Visual","Digital"};
+char error[] = "Digite um número válido [1-4] ou ainda não utilizado:\n";
 
 
 char perfilDominante[100] = "->";
@@ -121,6 +122,7 @@ void layout(void){
 				printf("\n");			
 				printf("Qual teste deseja realizar?\n");
 				
+				
 				printf("1. Padrão\n");
 				printf("2. Personalizado\n");
 				scanf("%i",&auxi);
@@ -133,6 +135,7 @@ void layout(void){
 						break;
 					case 2:
 						customQuest();
+						layout();
 						break;
 				}
 				
@@ -279,7 +282,7 @@ void question1(void){
 	scanf("%d", &b1);
 	aud[0] = b1;	
 	while(b1<1 || b1>4 || b1==a1){
-		printf("Digite um número válido [1-4] ou ainda não utilizado:\n");
+		printf("%s", error);
 		printf("[b] -> ");
 		scanf("%d", &b1);
 		aud[0] = b1;
@@ -289,7 +292,7 @@ void question1(void){
 	scanf("%d", &c1);
 	vis[0] = c1;
 	while(c1<1 || c1>4 || c1==a1 || c1==b1){
-		printf("Digite um número válido [1-4] ou ainda não utilizado:\n");
+		printf("%s", error);
 		printf("[c] -> ");
 		scanf("%d", &c1);
 		vis[0] = c1;
@@ -299,7 +302,7 @@ void question1(void){
 	scanf("%d", &d1);
 	dig[0] = d1;
 	while(d1<1 || d1>4 || d1==a1 || d1==b1 || d1==c1){
-		printf("Digite um número válido [1-4] ou ainda não utilizado:\n");
+		printf("%s", error);
 		printf("[d] -> ");
 		scanf("%d", &d1);
 		dig[0] = d1;
@@ -333,7 +336,7 @@ void question2(void){
 	scanf("%d", &b2);
 	vis[1] = b2;	
 	while(b2<1 || b2>4 || b2==a2){
-		printf("Digite um número válido [1-4] ou ainda não utilizado:\n");
+		printf("%s", error);
 		printf("[b] -> ");
 		scanf("%d", &b2);
 		vis[1] = b2;
@@ -343,7 +346,7 @@ void question2(void){
 	scanf("%d", &c2);
 	dig[1] = c2;
 	while(c2<1 || c2>4 || c2==a2 || c2==b2){
-		printf("Digite um número válido [1-4] ou ainda não utilizado:\n");
+		printf("%s", error);
 		printf("[c] -> ");
 		scanf("%d", &c2);
 		dig[1] = c2;
@@ -353,7 +356,7 @@ void question2(void){
 	scanf("%d", &d2);
 	cin[1] = d2;
 	while(d2<1 || d2>4 || d2==a2 || d2==b2 || d2==c2){
-		printf("Digite um número válido [1-4] ou ainda não utilizado:\n");
+		printf("%s", error);
 		printf("[d] -> ");
 		scanf("%d", &d2);
 		cin[1] = d2;
@@ -386,7 +389,7 @@ void question3(void){
 	scanf("%d", &b3);
 	cin[2] = b3;	
 	while(b3<1 || b3>4 || b3==a3){
-		printf("Digite um número válido [1-4] ou ainda não utilizado:\n");
+		printf("%s", error);
 		printf("[b] -> ");
 		scanf("%d", &b3);
 		cin[2] = b3;
@@ -396,7 +399,7 @@ void question3(void){
 	scanf("%d", &c3);
 	dig[2] = c3;
 	while(c3<1 || c3>4 || c3==a3 || c3==b3){
-		printf("Digite um número válido [1-4] ou ainda não utilizado:\n");
+		printf("%s", error);
 		printf("[c] -> ");
 		scanf("%d", &c3);
 		dig[2] = c3;
@@ -406,7 +409,7 @@ void question3(void){
 	scanf("%d", &d3);
 	aud[2] = d3;
 	while(d3<1 || d3>4 || d3==a3 || d3==b3 || d3==c3){
-		printf("Digite um número válido [1-4] ou ainda não utilizado:\n");
+		printf("%s", error);
 		printf("[d] -> ");
 		scanf("%d", &d3);
 		aud[2] = d3;
@@ -439,7 +442,7 @@ void question4(void){
 	scanf("%d", &b4);
 	dig[3] = b4;	
 	while(b4<1 || b4>4 || b4==a4){
-		printf("Digite um número válido [1-4] ou ainda não utilizado:\n");
+		printf("%s", error);
 		printf("[b] -> ");
 		scanf("%d", &b4);
 		dig[3] = b4;	
@@ -449,7 +452,7 @@ void question4(void){
 	scanf("%d", &c4);
 	cin[3] = c4;
 	while(c4<1 || c4>4 || c4==a4 || c4==b4){
-		printf("Digite um número válido [1-4] ou ainda não utilizado:\n");
+		printf("%s", error);
 		printf("[c] -> ");
 		scanf("%d", &c4);
 		cin[3] = c4;
@@ -459,7 +462,7 @@ void question4(void){
 	scanf("%d", &d4);
 	vis[3] = d4;
 	while(d4<1 || d4>4 || d4==a4 || d4==b4 || d4==c4){
-		printf("Digite um número válido [1-4] ou ainda não utilizado:\n");
+		printf("%s", error);
 		printf("[d] -> ");
 		scanf("%d", &d4);
 		vis[3] = d4;
@@ -492,7 +495,7 @@ void question5(void){
 	scanf("%d", &b5);
 	dig[4] = b5;	
 	while(b5<1 || b5>4 || b5==a5){
-		printf("Digite um número válido [1-4] ou ainda não utilizado:\n");
+		printf("%s", error);
 		printf("[b] -> ");
 		scanf("%d", &b5);
 		dig[4] = b5;
@@ -502,7 +505,7 @@ void question5(void){
 	scanf("%d", &c5);
 	cin[4] = c5;
 	while(c5<1 || c5>4 || c5==a5 || c5==b5){
-		printf("Digite um número válido [1-4] ou ainda não utilizado:\n");
+		printf("%s", error);
 		printf("[c] -> ");
 		scanf("%d", &c5);
 		cin[4] = c5;
@@ -512,7 +515,7 @@ void question5(void){
 	scanf("%d", &d5);
 	vis[4] = d5;
 	while(d5<1 || d5>4 || d5==a5 || d5==b5 || d5==c5){
-		printf("Digite um número válido [1-4] ou ainda não utilizado:\n");
+		printf("%s", error);
 		printf("[d] -> ");
 		scanf("%d", &d5);
 		vis[4] = d5;
