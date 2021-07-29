@@ -553,16 +553,11 @@ void resultado(void){
 	printf(" || ");
 	printf("Cinestésico: %.0f%%", calculate(cin));
 	printf(" || ");
-	printf("Auditivo: %.0f%%", calculate(aud));
-	
+	printf("Auditivo: %.0f%%", calculate(aud));	
 	printf("\n");
 	perfils();
-	printf("Seu perfil é: %s", perfilDominante);
-	
-
-
-	printf("\n");
-	
+	printf("Seu perfil é: %s", perfilDominante);	
+	printf("\n");	
 	return 	0;
 }
 
