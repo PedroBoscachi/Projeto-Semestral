@@ -1,13 +1,12 @@
+
 #include  <stdio.h>
 #include <stdlib.h>
 #include <locale.h>
 #include <string.h>
 #include <conio.h>
 
-
-char number;
-char name[30];
-char prontuario[20];
+char resultados[100] = "RESULTADO_";
+char number, name[30], prontuario[20];
 void createFile(name,prontuario);
 void test(void);
 void question1(void);
@@ -16,78 +15,42 @@ void question3(void);
 void question4(void);
 void question5(void);
 float calculate();
-void resultado(void);
 void interface3(void);
 void perfil(void);
 int questionario(void);
 void copiarArquivo(FILE *file_quest, FILE *file_quest2);
 void option2(void);
 void perfils(void);
-
-int aud[5];
-int cin[5];
-int vis[5];
-int dig[5];
-
-
-
-
+int aud[5], cin[5], vis[5], dig[5];
 int nrofrase[5] = {1,2,3,4,5};
-char frase[5][100];
-char item_1[5][100]; // cinestesico
-char item_2[5][100]; // auditivo
-char item_3[5][100]; // visual
-char item_4[5][100]; // digital
+char frase[5][100], item_1[5][100], item_2[5][100], item_3[5][100], item_4[5][100];
 char perfis[4][100] = {"Cinestesico","Auditivo","Visual","Digital"};
 char error[] = "Digite um número válido [1-4] ou ainda não utilizado:\n";
-
-
-char perfilDominante[100] = "->";
-
+char perfilDominante[100] = "";
 int auxiliar = 0;
-
 FILE *file_quest;
 
-
-
-int main(){
-	
+int main(){	
 	setlocale(LC_ALL,"portuguese");	
-	void login(void);
 	void layout(void);	
-	login();
-	int compare;
-	compare = stricmp(name, "MASTER"); //coloquei aqui para arrumar o momento do createFile
-	if(compare == 0){
-		layout();
-	}
-	else{
-		interface3();
-		createFile(name,prontuario);
-	}					
-
-	return 0;				
-}
-
-
-void login(void){
-	
-	
 	printf("DIGITE SEU NOME:   ");
 	gets(name);
 	printf("DIGITE SEU PRONTUÁRIO:  ");
 	scanf("%s", prontuario);
-	
-	return;
+	int compare;
+	compare = stricmp(name, "MASTER"); //coloquei aqui para simplificar
+	if(compare == 0){
+		layout();
+	}
+	else{
+		interface3();		
+	}					
+	return 0;				
 }
 
-
-
 void layout(void){
-	int auxi;
-	
-	void customQuest(void);
-	
+	int auxi;	
+	void customQuest(void);	
 
 	setbuf(stdin,NULL);	
 	system("cls");	
@@ -104,8 +67,7 @@ void layout(void){
 	scanf("%c",&number);
 	
 	switch(number)
-	{
-	
+	{	
 		case 49:
 			system("cls");									
 			questionario();
@@ -120,14 +82,11 @@ void layout(void){
 			{
 				if(auxiliar == 1){
 				printf("\n");			
-				printf("Qual teste deseja realizar?\n");
-				
-				
+				printf("Qual teste deseja realizar?\n");								
 				printf("1. Padrão\n");
 				printf("2. Personalizado\n");
 				scanf("%i",&auxi);
-				switch(auxi){
-					
+				switch(auxi){					
 					case 1:
 						system("cls");
 						interface3();
@@ -135,38 +94,38 @@ void layout(void){
 						break;
 					case 2:
 						customQuest();
+						createFile(name,prontuario);
+						system(resultados);
 						layout();
 						break;
-				}
-				
+				}				
 				} else{
 					interface3();
 					layout();
-				}
-						
-
-	
-			
+				}										
 			}
 		break;
 		case 52:
 			{			
-				system("REFERENCIAL_TEORICO.txt"); //mostra o arquivo na tela
+				FILE *pont_ref;
+				pont_ref = fopen("REFERENCIAL_TEORICO.txt","w");
+				fprintf(pont_ref, "Referencial teórico\nSegundo Albert Merabian, em seu livro “Silent Messages”, o poder de influência das palavras não passa de 7%%, \nenquanto a forma como as palavras são ditas e a fisiologia representam 38%% e 55%% deste poder, respectivamente.\n\nPara Merabian 55%% do impacto da comunicação é não-verbal. Corresponde à postura, gestos e contato visual da pessoa enquanto se comunica.\n");
+				fprintf(pont_ref, "\nO tom da voz representa 38%% do impacto da comunicação.\n\nPor fim, as palavras propriamente ditas detêm 7%% do impacto da comunicação.\n\nAssim sendo, conclui Merabian, não é o que dizemos, mas como dizemos que faz a diferença na comunicação.\n");
+				fprintf(pont_ref, "\nAs portas da percepção são os nossos sentidos, nossos olhos, nariz, ouvidos, boca e pele, nossos únicos pontos de contato com o mundo exterior. \nDa mesma forma que utilizamos os sentidos para filtrarmos as experiências, utilizamos sentidos para estruturar nosso pensamento e nossa comunicação.");
+				fprintf(pont_ref, "\nDe acordo com a Programação Neurolinguística existem os seguintes sistemas representacionais.\n-Auditivo\n-Digital\n-Cinestésico\n-Visual\n\nAlgumas pessoas captam melhor as mensagens do mundo exterior através da audição, são as pessoas chamadas auditivas.\n");
+				fprintf(pont_ref, "Outras pessoas sentem necessidade de perguntar muito, necessitam de muitas informações e fatos. Estas são as digitais.\nAs cinestésicas aprendem melhor por meio das sensações táteis, como o tato, a temperatura, a umidade, as sensações internas e as emoções.\nJá as pessoas visuais aprendem melhor quando se valendo da visão.\n");
+				fprintf(pont_ref, "\nCada pessoa tem um sistema representacional predominante e adequar a comunicação ao sistema representacional dominante dela fundamental\npara diálogos eficientes.\n");
+				fclose(pont_ref);
+				system("REFERENCIAL_TEORICO.txt");
 				layout();
-			}
+		}
 		break;
 		case 102:
-			printf("Finalizado\n");
-			if(calculate(vis) > 1){
-				createFile(name,prontuario);
-			}
+			printf("Finalizado\n");			
 			exit(0);
 		break;
 		case 70:
-			printf("Finalizado\n");
-			if(calculate(vis) > 1){
-				createFile(name,prontuario);
-			}			
+			printf("Finalizado\n");						
 			exit(0);
 		break;
 		default:
@@ -174,8 +133,7 @@ void layout(void){
 			printf("\t     ===========Comando inválido===========\n");
 			printf("                  \n");
 			printf("                  \n");
-			system("pause");
-			
+			system("pause");			
 			layout();
 			break;
 	};
@@ -183,25 +141,20 @@ void layout(void){
 } 	
 	
 void createFile(char nome[30], char pront[20]){
-	char txt[] = ".txt";
-	char replacement = '_';
-	char file_name[30];
-	char resultados[100] = "RESULTADO_";
-	int tamanho;
-	int i;
+
+	char txt[5] = ".txt", replacement = '_', file_name[30];
+
+
+	//resultados[100] = "RESULTADO_";
+	int tamanho, i;
 	char user[30] = "";
-	strcpy(user,nome);
-	 
-	FILE *pont_arq; // cria variável ponteiro para o arquivo
-  	char palavra[100] = "Eu"; // variável do tipo string
-  
-  //abrindo o arquivo com tipo de abertura w
-  
+	strcpy(user,nome);	 
+	FILE *pont_arq; // cria variável ponteiro para o arquivo 
+ 
   strcat(nome," ");
   strcat(nome,pront);
   strcat(nome,txt);
-  strcpy(file_name,nome);
-  
+  strcpy(file_name,nome);  
   for(i=0; i<(strlen(file_name)-1); i++){
   	if(isspace(file_name[i])){
   		file_name[i] = replacement;
@@ -210,64 +163,36 @@ void createFile(char nome[30], char pront[20]){
 		file_name[i] = replacement;
 	} 	
   } 
+  perfils();
   strcat(resultados,file_name);
-  pont_arq = fopen(resultados, "w");
-  
+  pont_arq = fopen(resultados, "w");  
   fprintf(pont_arq, "================ Perfil representacional de %s ================\n",user);
-  fprintf(pont_arq, "Visual: %.0f%% || Auditivo: %.0f%% || Cinestésico: %.0f%% || Digital: %.0f%%\n", calculate(vis),calculate(aud),calculate(cin),calculate(dig));
+  fprintf(pont_arq, "Visual: %.0f%% || Auditivo: %.0f%% || Cinestésico: %.0f%% || Digital: %.0f%%\n================================================================================================================================================\n* Algumas pessoas captam melhor as mensagens do mundo exterior através da audição, são as pessoas chamadas auditivas.\n* Outras pessoas sentem necessidade de perguntar muito, necessitam de muitas informações e fatos. Estas são as digitais.\n* As cinestésicas aprendem melhor por meio das sensações táteis, como o tato, a temperatura, a umidade, as sensações internas e as emoções..\n* Já as pessoas visuais aprendem melhor quando se valendo da visão.\n", calculate(vis),calculate(aud),calculate(cin),calculate(dig));
   fprintf(pont_arq, "================================================================================================================================================\n");
-  fprintf(pont_arq, "* Algumas pessoas captam melhor as mensagens do mundo exterior através da audição, são as pessoas chamadas auditivas.\n");
-  fprintf(pont_arq, "* Outras pessoas sentem necessidade de perguntar muito, necessitam de muitas informações e fatos. Estas são as digitais.\n");
-  fprintf(pont_arq, "* As cinestésicas aprendem melhor por meio das sensações táteis, como o tato, a temperatura, a umidade, as sensações internas e as emoções..\n");
-  fprintf(pont_arq, "* Já as pessoas visuais aprendem melhor quando se valendo da visão.\n"); 
-  fprintf(pont_arq, "================================================================================================================================================\n");
-  fprintf(pont_arq, "\nSeu perfil é: %s", perfilDominante);
-	
-  
-  
+  fprintf(pont_arq, "\nSeu perfil é: %s", perfilDominante);	  
   fclose(pont_arq);
   printf("%s", pont_arq);
-  system("pause");
+  system("pause");          
   
-  
-  
-  
-  
-  //testando se o arquivo foi realmente criado
   if(pont_arq == NULL)
   {
   printf("Erro na abertura do arquivo!");
   return 1;
   }
-  
-  return 0;
-	
+  	
+
+  return 0;	
 }
 
-
-void test(void){//função para enunciado do arquivo
-	
-	printf("\nNas frases a seguir, pontue com: ");
-	printf("\n4- a que melhor descreve você; ");
-	printf("\n3- a próxima melhor descrição; ");
-	printf("\n2- a próxima melhor; ");
-	printf("\n1- aquela que menos descreve você. \n");
-	
+void test(void){//função para enunciado do arquivo	
+	printf("\nNas frases a seguir, pontue com: \n4- a que melhor descreve você; \n3- a próxima melhor descrição; \n2- a próxima melhor; \n1- aquela que menos descreve você. \n");
 }
 
-
-void question1(void){
-	
+void question1(void){	
 	int a1, b1, c1, d1;
 			
-	printf("\n1. Eu tomo decisões importantes baseado em: ");
-	printf("\na) Intuição. ");
-	printf("\nb) O que me soa melhor. ");
-	printf("\nc) O que me parece melhor. ");
-	printf("\nd) Um estudo preciso e minucioso do assunto. \n");
-	
-	printf("\n");
-	
+	printf("\n1. Eu tomo decisões importantes baseado em: \na) Intuição. \nb) O que me soa melhor. \nc) O que me parece melhor. \nd) Um estudo preciso e minucioso do assunto. \n");	
+	printf("\n");	
 	printf("[a] -> ");
 	scanf("%d", &a1);
 	cin[0] = a1;	
@@ -276,8 +201,7 @@ void question1(void){
 		printf("[a] -> ");
 		scanf("%d", &a1);
 		cin[0] = a1;	
-	}
-	
+	}	
 	printf("[b] -> ");
 	scanf("%d", &b1);
 	aud[0] = b1;	
@@ -286,8 +210,7 @@ void question1(void){
 		printf("[b] -> ");
 		scanf("%d", &b1);
 		aud[0] = b1;
-	}	
-	
+	}		
 	printf("[c] -> ");
 	scanf("%d", &c1);
 	vis[0] = c1;
@@ -296,8 +219,7 @@ void question1(void){
 		printf("[c] -> ");
 		scanf("%d", &c1);
 		vis[0] = c1;
-	}	
-	
+	}		
 	printf("[d] -> ");
 	scanf("%d", &d1);
 	dig[0] = d1;
@@ -306,20 +228,13 @@ void question1(void){
 		printf("[d] -> ");
 		scanf("%d", &d1);
 		dig[0] = d1;
-	}
-				
+	}				
 }
 
-void question2(void){
-	
+void question2(void){	
 	int a2, b2, c2, d2;	
 	
-	printf("\n2. Durante uma discussão eu sou mais influenciado por: ");
-	printf("\na) O tom da voz da outra pessoa.");
-	printf("\nb) Se eu posso ou não ver o argumento da outra pessoa.");
-	printf("\nc) A lógica do argumento da outra pessoa.");
-	printf("\nd) Se eu entro em contato ou não com os sentimentos reais do outro.\n");
-	
+	printf("\n2. Durante uma discussão eu sou mais influenciado por: \na) O tom da voz da outra pessoa.\nb) Se eu posso ou não ver o argumento da outra pessoa.\nc) A lógica do argumento da outra pessoa.\nd) Se eu entro em contato ou não com os sentimentos reais do outro.\n");		
 	printf("\n");
 	
 	printf("[a] -> ");
@@ -330,8 +245,7 @@ void question2(void){
 		printf("[a] -> ");
 		scanf("%d", &a2);
 		aud[1] = a2;	
-	}
-	
+	}	
 	printf("[b] -> ");
 	scanf("%d", &b2);
 	vis[1] = b2;	
@@ -340,8 +254,7 @@ void question2(void){
 		printf("[b] -> ");
 		scanf("%d", &b2);
 		vis[1] = b2;
-	}
-	
+	}	
 	printf("[c] -> ");
 	scanf("%d", &c2);
 	dig[1] = c2;
@@ -350,8 +263,7 @@ void question2(void){
 		printf("[c] -> ");
 		scanf("%d", &c2);
 		dig[1] = c2;
-	}	
-	
+	}		
 	printf("[d] -> ");
 	scanf("%d", &d2);
 	cin[1] = d2;
@@ -363,18 +275,12 @@ void question2(void){
 	}			
 }
 
-void question3(void){
-	
+void question3(void){	
 	int a3, b3, c3, d3;
 	
-	printf("\n3. Eu comunico mais facilmente o que se passa comigo: ");
-	printf("\na) Do modo como me visto e aparento.");
-	printf("\nb) Pelos sentimentos que compartilho.");
-	printf("\nc) Pelas palavras que escolho.");
-	printf("\nd) Pelo tom da minha voz.\n");
-	
+	printf("\n3. Eu comunico mais facilmente o que se passa comigo: \na) Do modo como me visto e aparento.\nb) Pelos sentimentos que compartilho.\nc) Pelas palavras que escolho.\nd) Pelo tom da minha voz.\n");	
 	printf("\n");
-	
+		
 	printf("[a] -> ");
 	scanf("%d", &a3);
 	vis[2] = a3;	
@@ -383,8 +289,7 @@ void question3(void){
 		printf("[a] -> ");
 		scanf("%d", &a3);
 		vis[2] = a3;	
-	}
-	
+	}	
 	printf("[b] -> ");
 	scanf("%d", &b3);
 	cin[2] = b3;	
@@ -393,8 +298,7 @@ void question3(void){
 		printf("[b] -> ");
 		scanf("%d", &b3);
 		cin[2] = b3;
-	}	
-	
+	}		
 	printf("[c] -> ");
 	scanf("%d", &c3);
 	dig[2] = c3;
@@ -403,8 +307,7 @@ void question3(void){
 		printf("[c] -> ");
 		scanf("%d", &c3);
 		dig[2] = c3;
-	}	
-	
+	}		
 	printf("[d] -> ");
 	scanf("%d", &d3);
 	aud[2] = d3;
@@ -416,16 +319,10 @@ void question3(void){
 	}			
 }
 
-void question4(void){
-	
+void question4(void){	
 	int a4, b4, c4, d4;
 	
-	printf("\n4. É muito fácil para mim: ");
-	printf("\na) Achar o volume e a sintonia ideais num sistema de som.");
-	printf("\nb) Selecionar o ponto mais relevante relativo a um assunto interessante.");
-	printf("\nc) Escolher os móveis mais confortáveis.");
-	printf("\nd) Escolher as combinações de cores mais ricas e atraentes.\n");
-	
+	printf("\n4. É muito fácil para mim: \na) Achar o volume e a sintonia ideais num sistema de som.\nb) Selecionar o ponto mais relevante relativo a um assunto interessante.\nc) Escolher os móveis mais confortáveis.\nd) Escolher as combinações de cores mais ricas e atraentes.\n");
 	printf("\n");
 	
 	printf("[a] -> ");
@@ -436,8 +333,7 @@ void question4(void){
 		printf("[a] -> ");
 		scanf("%d", &a4);
 		aud[3] = a4;	
-	}
-	
+	}	
 	printf("[b] -> ");
 	scanf("%d", &b4);
 	dig[3] = b4;	
@@ -446,8 +342,7 @@ void question4(void){
 		printf("[b] -> ");
 		scanf("%d", &b4);
 		dig[3] = b4;	
-	}
-	
+	}	
 	printf("[c] -> ");
 	scanf("%d", &c4);
 	cin[3] = c4;
@@ -456,8 +351,7 @@ void question4(void){
 		printf("[c] -> ");
 		scanf("%d", &c4);
 		cin[3] = c4;
-	}
-	
+	}	
 	printf("[d] -> ");
 	scanf("%d", &d4);
 	vis[3] = d4;
@@ -469,15 +363,10 @@ void question4(void){
 	}	
 }
 
-void question5(void){
-	
+void question5(void){	
 	int a5, b5, c5, d5;
 	
-	printf("\n5. Eu me percebo assim: ");
-	printf("\na) Se estou muito em sintonia com os sons dos ambientes.");
-	printf("\nb) Se sou muito capaz de raciocinar com fatos e dados novos.");
-	printf("\nc) Eu sou muito sensível à maneira como a roupa veste meu corpo.");
-	printf("\nd) Eu respondo fortemente às cores e à aparência de uma sala.\n");
+	printf("\n5. Eu me percebo assim: \na) Se estou muito em sintonia com os sons dos ambientes.\nb) Se sou muito capaz de raciocinar com fatos e dados novos.\nc) Eu sou muito sensível à maneira como a roupa veste meu corpo.\nd) Eu respondo fortemente às cores e à aparência de uma sala.\n");	
 	
 	printf("\n");
 	
@@ -489,8 +378,7 @@ void question5(void){
 		printf("[a] -> ");
 		scanf("%d", &a5);
 		aud[4] = a5;	
-	}
-	
+	}	
 	printf("[b] -> ");
 	scanf("%d", &b5);
 	dig[4] = b5;	
@@ -499,8 +387,7 @@ void question5(void){
 		printf("[b] -> ");
 		scanf("%d", &b5);
 		dig[4] = b5;
-	}	
-	
+	}		
 	printf("[c] -> ");
 	scanf("%d", &c5);
 	cin[4] = c5;
@@ -509,8 +396,7 @@ void question5(void){
 		printf("[c] -> ");
 		scanf("%d", &c5);
 		cin[4] = c5;
-	}
-	
+	}	
 	printf("[d] -> ");
 	scanf("%d", &d5);
 	vis[4] = d5;
@@ -524,41 +410,14 @@ void question5(void){
 
 
 float calculate(int type[5]){
-	int perfil[4];
-	float result;
-	int sum = 0;
-	int i;
+	int perfil[4], sum = 0, i;	
+	float result;	
 	
 	for(i = 0; i<5 ; i++){
 		sum = sum + type[i];
-	}
-	
-	result = sum * 2;
-	
-
-	
+	}	
+	result = sum * 2;		
 	return result;
-}
-
-
-void resultado(void){
-	
-	system("cls");
-	printf("\n");
-	printf("============================RESULTADO============================");
-	printf("\n");
-	printf("Visual: %.0f%%", calculate(vis));
-	printf(" || ");
-	printf("Digital: %.0f%% ", calculate(dig));
-	printf(" || ");
-	printf("Cinestésico: %.0f%%", calculate(cin));
-	printf(" || ");
-	printf("Auditivo: %.0f%%", calculate(aud));	
-	printf("\n");
-	perfils();
-	printf("Seu perfil é: %s", perfilDominante);	
-	printf("\n");	
-	return 	0;
 }
 
 void interface3(void){
@@ -578,35 +437,23 @@ void interface3(void){
 	system("cls");
 	test();
 	question5();
-	resultado();
+	createFile(name,prontuario);
+	system(resultados);
 }
 
 
 int questionario(void){
-	setbuf(stdin,NULL);
-	
-	auxiliar = 1;
-
-	
-//	int nrofrase[5] = {1,2,3,4,5};
-//	char frase[5][100];
-//	char item_1[5][100]; // cinestesico
-//	char item_2[5][100]; // auditivo
-//	char item_3[5][100]; // visual
-//	char item_4[5][100]; // digital
-//	char perfis[4][100] = {"Cinestesico","Auditivo","Visual","Digital"};
-	char aux[100];
-	
+	setbuf(stdin,NULL);	
+	auxiliar = 1;	
+	char aux[100];	
 	int i,j,k;
 	for(i=0;i<5;i++){
 		system("cls");
 		printf("Digite a frase %i: ", nrofrase[i]);
 		gets(frase[i]);
-		printf("======================================\n");
-		
+		printf("======================================\n");		
 		for(k=0;k<4;k++){
-			printf("%s -> %s: ", perfis[k],frase[i]);
-			
+			printf("%s -> %s: ", perfis[k],frase[i]);			
 			switch(k){
 				case 0:
 				gets(item_1[i]);
@@ -624,14 +471,17 @@ int questionario(void){
 	}			
 	}
 	int val = 0;
-	file_quest = fopen("TESTE_SISTEMA_REPRESENTACIONAL.dat", "wb");	
-	
-	fprintf(file_quest, "=================================================================================================================================================================================\n");
-	fprintf(file_quest, "%-10s%20s %20s%20s%20s%20s%20s%20s%20s%20s\n", "NroFrase", "Frase", "Cinestésico", "item_1", "Auditivo", "item_2", "Visual", "item_3", "Digital", "item_4");
-	fprintf(file_quest, "=================================================================================================================================================================================\n");
+	file_quest = fopen("TESTE_SISTEMA_REPRESENTACIONAL.dat", "wb");		
+	fprintf(file_quest, "========================================================================================================================================================================================================================================================================================================================================================================\n");
+	fprintf(file_quest, "%-5s                                          %20s                                         %20s                                                %20s                                                %20s                                                  %20s                                                  %20s                                                  %20s                                                %20s                                               %20s\n", "NroFrase", "Frase", "Cinestésico", "item_1", "Auditivo", "item_2", "Visual", "item_3", "Digital", "item_4");
+	fprintf(file_quest, "========================================================================================================================================================================================================================================================================================================================================================================\n");
 	for(i=0; i<5; i++){
-		fprintf(file_quest, "%-5d%20s     %20d     %20s     %20d     %20s     %20d     %20s     %20d     %20s\n", nrofrase[i], frase[i], val, item_1[i], val, item_2[i], val, item_3[i], val, item_4[i]);
-		fprintf(file_quest, "=================================================================================================================================================================================\n");		
+		fprintf(file_quest, " %-5d%64s", nrofrase[i], frase[i]);
+		fprintf(file_quest, " %55d %72s  ", val, item_1[i]);
+		fprintf(file_quest, " %62d %72s  ", val, item_2[i]);
+		fprintf(file_quest, " %65d %71s  ", val, item_3[i]);
+		fprintf(file_quest, " %62d %69s\n", val, item_4[i]);
+		fprintf(file_quest, "========================================================================================================================================================================================================================================================================================================================================================================\n");		
 	}
 	fclose(file_quest);					
 	return 0;	
@@ -640,13 +490,11 @@ int questionario(void){
 void option2(void){
 	file_quest = fopen("TESTE_SISTEMA_REPRESENTACIONAL.dat", "rb");		
 	FILE *file_quest2;
-	file_quest2 = fopen("QUESTIONÁRIO_1.txt", "w");
-	
+	file_quest2 = fopen("QUESTIONÁRIO_1.txt", "w");	
 	copiarArquivo(file_quest, file_quest2);
 	fclose(file_quest2);
 	fclose(file_quest);
 }
-
 
 void copiarArquivo(FILE *file_quest, FILE *file_quest2){
 	char leitor[10000];
@@ -658,41 +506,29 @@ void copiarArquivo(FILE *file_quest, FILE *file_quest2){
 
 void perfils(void){
 	int perfilgroup[4];
+	memset(perfilDominante, 0, 100);
 	perfilgroup[0] = calculate(cin);
 	perfilgroup[1] = calculate(dig);
 	perfilgroup[2] = calculate(vis);
 	perfilgroup[3] = calculate(aud);
 	
-	int maior = 0;
-	int i;
-	int ja;
+	int maior = 0, i, ja;
 	
 	for(i=0;i<4;i++){
 		if(perfilgroup[i] > maior){
 			maior = perfilgroup[i];
 		}
-	}
-	
-//	perfil[0] == maior ? printf("/ Cinestésico ") : ja--;
-//	perfil[1] == maior ? printf("/ Digital") : ja--;
-//	perfil[2] == maior ? printf("/ Visual ") : ja--;
-//	perfil[3] == maior ? printf("/ Auditivo ") : ja--;
-	
+	}		
 	perfilgroup[0] == maior ? strcat(perfilDominante," / Cinestésico") : ja--;
 	perfilgroup[1] == maior ? strcat(perfilDominante," / Digital") : ja--;
 	perfilgroup[2] == maior ? strcat(perfilDominante," / Visual") : ja--;
-	perfilgroup[3] == maior ? strcat(perfilDominante," / Auditivo") : ja--;
-	
-	return ;
-	
+	perfilgroup[3] == maior ? strcat(perfilDominante," / Auditivo") : ja--;	
+	return ;	
 }
 
 void customQuest(){
-	char abc[4][10] = {"a","b","c","d"};
-		
-	int resp;
-	int i;
-	int j;
+	char abc[4][10] = {"a","b","c","d"};		
+	int resp, i, j;
 	for(i=0;i<5;i++){
 		system("cls");
 		test();
@@ -716,7 +552,7 @@ void customQuest(){
 				break;
 				case 1:
 					while(resp <1 || resp>4 || resp == cin[i]){
-						printf("Digite um número válido [1-4] ou ainda não utilizado:\n");
+						printf("%s", error);
 						printf("[%s] -> ", abc[j]);
 						scanf("%i",&resp);
 					}
@@ -724,7 +560,7 @@ void customQuest(){
 				break;
 				case 2:
 				while(resp <1 || resp>4 || resp == cin[i] || resp == aud[i]){
-						printf("Digite um número válido [1-4] ou ainda não utilizado:\n");
+						printf("%s", error);
 						printf("[%s] -> ", abc[j]);
 						scanf("%i",&resp);
 					}
@@ -732,7 +568,7 @@ void customQuest(){
 				break;
 				case 3:
 					while(resp <1 || resp>4 || resp == cin[i] || resp == aud[i]|| resp == vis[i]){
-						printf("Digite um número válido [1-4] ou ainda não utilizado:\n");
+						printf("%s", error);
 						printf("[%s] -> ", abc[j]);
 						scanf("%i",&resp);
 					}
@@ -740,6 +576,6 @@ void customQuest(){
 				break;
 			}			
 		}				
-	}	
-	resultado();	
+	}			
 }
+
