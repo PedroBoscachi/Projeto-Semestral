@@ -1,4 +1,3 @@
-
 #include  <stdio.h>
 #include <stdlib.h>
 #include <locale.h>
@@ -27,7 +26,7 @@ char frase[5][100], item_1[5][100], item_2[5][100], item_3[5][100], item_4[5][10
 char perfis[4][100] = {"Cinestesico","Auditivo","Visual","Digital"};
 char error[] = "Digite um número válido [1-4] ou ainda não utilizado:\n";
 char perfilDominante[100] = "";
-int auxiliar = 0;
+int auxiliar = 0, file_conter=0;
 FILE *file_quest;
 
 int main(){	
@@ -163,8 +162,12 @@ void createFile(char nome[30], char pront[20]){
 		file_name[i] = replacement;
 	} 	
   } 
+  
   perfils();
-  strcat(resultados,file_name);
+  if(file_conter == 0){
+  	strcat(resultados,file_name);
+	  file_conter = 1;	
+  } 
   pont_arq = fopen(resultados, "w");  
   fprintf(pont_arq, "================ Perfil representacional de %s ================\n",user);
   fprintf(pont_arq, "Visual: %.0f%% || Auditivo: %.0f%% || Cinestésico: %.0f%% || Digital: %.0f%%\n================================================================================================================================================\n* Algumas pessoas captam melhor as mensagens do mundo exterior através da audição, são as pessoas chamadas auditivas.\n* Outras pessoas sentem necessidade de perguntar muito, necessitam de muitas informações e fatos. Estas são as digitais.\n* As cinestésicas aprendem melhor por meio das sensações táteis, como o tato, a temperatura, a umidade, as sensações internas e as emoções..\n* Já as pessoas visuais aprendem melhor quando se valendo da visão.\n", calculate(vis),calculate(aud),calculate(cin),calculate(dig));
