@@ -3,9 +3,11 @@
 #include <locale.h>
 #include <string.h>
 #include <conio.h>
+#include <ctype.h>
 
 char resultados[100] = "RESULTADO_";
 char number, name[30], prontuario[20];
+void customLayout(void);
 void createFile(name,prontuario);
 void test(void);
 void question1(void);
@@ -48,8 +50,8 @@ int main(){
 }
 
 void layout(void){
-	int auxi;	
-	void customQuest(void);	
+		
+	
 
 	setbuf(stdin,NULL);	
 	system("cls");	
@@ -80,24 +82,8 @@ void layout(void){
 		case 51:
 			{
 				if(auxiliar == 1){
-				printf("\n");			
-				printf("Qual teste deseja realizar?\n");								
-				printf("1. Padrão\n");
-				printf("2. Personalizado\n");
-				scanf("%i",&auxi);
-				switch(auxi){					
-					case 1:
-						system("cls");
-						interface3();
-						layout();
-						break;
-					case 2:
-						customQuest();
-						createFile(name,prontuario);
-						system(resultados);
-						layout();
-						break;
-				}				
+					customLayout();
+								
 				} else{
 					interface3();
 					layout();
@@ -138,22 +124,54 @@ void layout(void){
 	};
 	return;
 } 	
+
+void customLayout(void){
+	void customQuest(void);
+	int auxi;
+	printf("\n");			
+	printf("Qual teste deseja realizar?\n");							
+	printf("1. Padrão\n");
+	printf("2. Personalizado\n");
+	printf("================================================================================\n");
+	printf("Escolha-> ");
+	scanf("%i",&auxi);
+	switch(auxi){					
+					case 1:
+						system("cls");
+						interface3();
+						layout();
+						break;
+					case 2:
+						customQuest();
+						createFile(name,prontuario);
+						system(resultados);
+						layout();
+						break;
+					default:
+						printf("\nDigite uma opção válida, [1 ou 2]");
+						printf("\n");
+						customLayout();
+						
+				}
+}
+
+
 	
 void createFile(char nome[30], char pront[20]){
 
 	char txt[5] = ".txt", replacement = '_', file_name[30];
 
-
+	
 	//resultados[100] = "RESULTADO_";
 	int tamanho, i;
 	char user[30] = "";
 	strcpy(user,nome);	 
 	FILE *pont_arq; // cria variável ponteiro para o arquivo 
  
-  strcat(nome," ");
-  strcat(nome,pront);
-  strcat(nome,txt);
-  strcpy(file_name,nome);  
+  strcat(user," ");
+  strcat(user,pront);
+  strcat(user,txt);
+  strcpy(file_name,user);  
   for(i=0; i<(strlen(file_name)-1); i++){
   	if(isspace(file_name[i])){
   		file_name[i] = replacement;
@@ -169,14 +187,13 @@ void createFile(char nome[30], char pront[20]){
 	  file_conter = 1;	
   } 
   pont_arq = fopen(resultados, "w");  
-  fprintf(pont_arq, "================ Perfil representacional de %s ================\n",user);
+  fprintf(pont_arq, "================ Perfil representacional de %s ================\n",nome);
   fprintf(pont_arq, "Visual: %.0f%% || Auditivo: %.0f%% || Cinestésico: %.0f%% || Digital: %.0f%%\n================================================================================================================================================\n* Algumas pessoas captam melhor as mensagens do mundo exterior através da audição, são as pessoas chamadas auditivas.\n* Outras pessoas sentem necessidade de perguntar muito, necessitam de muitas informações e fatos. Estas são as digitais.\n* As cinestésicas aprendem melhor por meio das sensações táteis, como o tato, a temperatura, a umidade, as sensações internas e as emoções..\n* Já as pessoas visuais aprendem melhor quando se valendo da visão.\n", calculate(vis),calculate(aud),calculate(cin),calculate(dig));
   fprintf(pont_arq, "================================================================================================================================================\n");
   fprintf(pont_arq, "\nSeu perfil é: %s", perfilDominante);	  
   fclose(pont_arq);
   printf("%s", pont_arq);
   system("pause");          
-  
   if(pont_arq == NULL)
   {
   printf("Erro na abertura do arquivo!");
@@ -195,12 +212,12 @@ void question1(void){
 	int a1, b1, c1, d1;
 			
 	printf("\n1. Eu tomo decisões importantes baseado em: \na) Intuição. \nb) O que me soa melhor. \nc) O que me parece melhor. \nd) Um estudo preciso e minucioso do assunto. \n");	
-	printf("\n");	
+	printf("\n");
 	printf("[a] -> ");
 	scanf("%d", &a1);
 	cin[0] = a1;	
-	while(a1<1 || a1>4){
-		printf("Digite um número válido [1-4]:\n");
+	while((a1<1 || a1>4)) {
+		printf("Digite um número válido [1-4]\n");
 		printf("[a] -> ");
 		scanf("%d", &a1);
 		cin[0] = a1;	
@@ -581,4 +598,8 @@ void customQuest(){
 		}				
 	}			
 }
+
+
+
+
 
